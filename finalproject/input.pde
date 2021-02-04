@@ -67,16 +67,26 @@ void keyReleased() {
 void mousePressed() {
   switch(mode) {
   case INTRO:
+    noCursor(); 
     mode = GAME; 
     break;
   case GAME:
     if (mouseButton == RIGHT) {
       //println("pressed"); 
-      int row = (int)(p.focusx)/100*100;
-      int col = (int)(p.focusy)/100*100;
-      int depth = (int)(p.focusz)/100*100;
-      m.add(new Cube(g, (float)row, (float)col, (float)depth, selected)); 
+      int row = ((int)(p.focusx))/100*100;
+      int col = ((int)(p.focusy))/100*100;
+      int depth = ((int)(p.focusz))/100*100;
+      String  h = row +" "+ col +" "+ depth;
+      cubes.put(h, new Cube(g, (float)row, (float)col, (float)depth, selected));
       break;
+    } else if(mouseButton == LEFT) {
+      int row = ((int)(p.focusx))/100*100;
+      int col = ((int)(p.focusy))/100*100;
+      int depth = ((int)(p.focusz))/100*100;
+      String  h = row +" "+ col +" "+ depth;
+      if(cubes.containsKey(h)) {
+        cubes.remove(h); 
+      }
     }
   }
 }

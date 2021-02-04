@@ -8,8 +8,8 @@ class Particle extends GameObject {
     float vx = random(0, 360); 
     float vy = random(0, 360); 
     float vz = random(0, 360); 
-    dir = new PVector(radians(vx), radians(vy), radians(vz)); 
-    dir.setMag(speed);
+    this.dir = new PVector(radians(vx), radians(vy), radians(vz)); 
+    this.dir.setMag(speed);
     lives = 500; 
   }
 

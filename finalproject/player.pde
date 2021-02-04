@@ -1,6 +1,7 @@
 class Player extends GameObject {
   float focusx, focusy, focusz, upx, upy, upz;
   float leftRightAngle, upDownAngle; 
+  float pmx, pmy, mx, my; 
 
   public Player(PGraphics g, float x, float y, float z, float focusx, float focusy, float focusz, float upx, float upy, float upz) {
     super(g, x, y, z); 
@@ -10,6 +11,7 @@ class Player extends GameObject {
     this.upx = upx;
     this.upy = upy;
     this.upz = upz;
+    lives = 3; 
 
     try {
       r = new Robot();
@@ -25,30 +27,81 @@ class Player extends GameObject {
   }
 
   public void act() {
-    if (a && canMoveForward() && canMoveLeft() && canMoveRight() && canMoveBack()) {
-      loc.x -= cos(leftRightAngle+PI/2)*10;
-      loc.z -= sin(leftRightAngle+PI/2)*10;
+    //if (a && canMoveForward() && canMoveLeft() && canMoveRight() && canMoveBack()) {
+    //  loc.x -= cos(leftRightAngle+PI/2)*10;
+    //  loc.z -= sin(leftRightAngle+PI/2)*10;
+    //}
+    //if (d && canMoveForward() && canMoveLeft() && canMoveRight() && canMoveBack()) {
+    //  loc.x += cos(leftRightAngle+PI/2)*10;
+    //  loc.z += sin(leftRightAngle+PI/2)*10;
+    //}
+    //if (w && canMoveForward() && canMoveLeft() && canMoveRight() && canMoveBack()) {
+    //  loc.z += sin(leftRightAngle)*10;
+    //  loc.x += cos(leftRightAngle)*10;
+    //}
+    //if (s && canMoveForward() && canMoveLeft() && canMoveRight() && canMoveBack()) {
+    //  loc.z -= sin(leftRightAngle)*10;
+    //  loc.x -= cos(leftRightAngle)*10;
+    //}
+
+
+
+
+    //System.out.println("hello"); 
+    if (a) {
+      int row = ((int)(loc.x - cos(leftRightAngle+PI/2)*100))/100*100;
+      int col = ((int)(loc.y))/100*100;
+      int depth = ((int)(loc.z - sin(leftRightAngle+PI/2)*100))/100*100;
+      String  h = row +" "+ col +" "+ depth;
+
+      if (!cubes.containsKey(h)) {
+        loc.x -= cos(leftRightAngle+PI/2)*10;
+        loc.z -= sin(leftRightAngle+PI/2)*10;
+      }
     }
-    if (d && canMoveForward() && canMoveLeft() && canMoveRight() && canMoveBack()) {
-      loc.x += cos(leftRightAngle+PI/2)*10;
-      loc.z += sin(leftRightAngle+PI/2)*10;
+    if (d) {
+      int row = ((int)(loc.x + cos(leftRightAngle+PI/2)*100))/100*100;
+      int col = ((int)(loc.y))/100*100;
+      int depth = ((int)(loc.z + sin(leftRightAngle+PI/2)*100))/100*100;
+      String  h = row +" "+ col +" "+ depth;
+
+      if (!cubes.containsKey(h)) {
+        loc.x += cos(leftRightAngle+PI/2)*10;
+        loc.z += sin(leftRightAngle+PI/2)*10;
+      }
     }
-    if (w && canMoveForward() && canMoveLeft() && canMoveRight() && canMoveBack()) {
-      loc.z += sin(leftRightAngle)*10;
-      loc.x += cos(leftRightAngle)*10;
+    if (w) {
+      int row = ((int)(loc.x + cos(leftRightAngle)*100))/100*100;
+      int col = ((int)(loc.y))/100*100;
+      int depth = ((int)(loc.z + sin(leftRightAngle)*100))/100*100;
+      String  h = row +" "+ col +" "+ depth;
+
+      if (!cubes.containsKey(h)) {
+        loc.z += sin(leftRightAngle)*10;
+        loc.x += cos(leftRightAngle)*10;
+      }
     }
-    if (s && canMoveForward() && canMoveLeft() && canMoveRight() && canMoveBack()) {
-      loc.z -= sin(leftRightAngle)*10;
-      loc.x -= cos(leftRightAngle)*10;
+    if (s) {
+      int row = ((int)(loc.x - cos(leftRightAngle)*100))/100*100;
+      int col = ((int)(loc.y))/100*100;
+      int depth = ((int)(loc.z - sin(leftRightAngle)*100))/100*100;
+      String  h = row +" "+ col +" "+ depth;
+
+      if (!cubes.containsKey(h)) {
+        loc.z -= sin(leftRightAngle)*10;
+        loc.x -= cos(leftRightAngle)*10;
+      }
     }
+
+
 
     focusx = loc.x + cos(leftRightAngle)*300; 
     focusy = loc.y + tan(upDownAngle)*300; 
     focusz = loc.z + sin(leftRightAngle)*300;
 
-    if (mouseX>pmouseX) {
+    if (mx>pmx) {
       leftRightAngle = leftRightAngle + 0.1;
-    } else if (pmouseX>mouseX) {
+    } else if (pmx>mx) {
       leftRightAngle = leftRightAngle - 0.1;
     }
 
@@ -71,6 +124,14 @@ class Player extends GameObject {
     //}
 
     //if (frameCount % 10 == 0) r.mouseMove(width/2, height/2);
+    pmx = pmouseX;   
+    mx = mouseX;   
+
+    if (mouseX >= width-10 && frameCount%3 == 0) {
+      mx+=.5;
+    } else if (mouseX <= 10 && frameCount%3 == 0) {
+      mx-=.5;
+    }
   }
 
   boolean canMoveForward() {
