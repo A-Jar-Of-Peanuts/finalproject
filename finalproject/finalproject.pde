@@ -23,14 +23,18 @@ Player p;
 Robot r; 
 
 //ArrayList<Cube> m = new ArrayList<Cube>(); 
-ArrayList<Snowflake> snowList = new ArrayList<Snowflake>(); 
-ArrayList<GameObject> bulletList = new ArrayList<GameObject>(); 
+ArrayList<Snowflake> snowList; 
+ArrayList<GameObject> bulletList; 
 
-HashMap<String, Cube> cubes = new HashMap<String, Cube>();
+HashMap<String, Cube> cubes;
 
 PImage selected; 
 
 void setup() {
+  snowList = new ArrayList<Snowflake>(); 
+  bulletList = new ArrayList<GameObject>(); 
+  cubes = new HashMap<String, Cube>(); 
+
   gridSize = 100; 
 
   w = false; 
@@ -73,13 +77,13 @@ void draw() {
     hud.beginDraw(); 
     hud.clear();
     hud.endDraw(); 
-    
+
     g.beginDraw();
     g.textureMode(NORMAL); 
     g.background(#d8e2dc); 
     g.fill(0); 
     g.textSize(50); 
-    g.text("FINAL PROJECT\nPRESS ANYWHERE\nTO START", width/2-500, height/2); 
+    g.text("FINAL PROJECT\nCLICK ANYWHERE\nTO START", width/2-500, height/2); 
     g.endDraw(); 
 
 
@@ -172,6 +176,18 @@ void draw() {
 
     break;
   case PAUSE:
+    g.beginDraw();
+    g.background(#d8e2dc); 
+    g.endDraw(); 
+    
+    hud.beginDraw();
+    hud.clear(); 
+    hud.fill(0); 
+    hud.textSize(50); 
+    hud.text("PAUSE\nPRESS ENTER TO START", width/2-500, height/2); 
+    hud.endDraw(); 
+
+
     break;
   case GAMEOVER:
     cursor(); 

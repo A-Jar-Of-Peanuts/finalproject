@@ -65,8 +65,14 @@ void keyReleased() {
       selected = log;
       break;
     }
+    if (keyCode == ENTER) {
+      mode = PAUSE;
+    }
     break;
   case PAUSE:
+    if (keyCode == ENTER) {
+      mode = GAME;
+    }
     break;
   case GAMEOVER:
     break;
@@ -78,17 +84,29 @@ void mouseReleased() {
     mode = GAME;
   } else if (mode == GAMEOVER) {
     mode = INTRO; 
-    p = new Player(g, width/2, 9*height/10, height/2, width/2, height/2, height/2-100, 0, 1, 0);
-    bulletList = new ArrayList<GameObject>(); 
-    cubes = new HashMap<String, Cube>();
-    drawMap(); 
-    drawFloor(-2000, 2000, height, gridSize); 
+    //p = new Player(g, width/2, 9*height/10, height/2, width/2, height/2, height/2-100, 0, 1, 0);
+    //g.camera(width/2, 9*height/10, height/2, width/2, height/2, height/2-100, 0, 1, 0);
 
-    w = false; 
-    a = false;
-    s = false; 
-    d = false; 
-    space = false;
+
+    //bulletList = new ArrayList<GameObject>(); 
+
+    //cubes = new HashMap<String, Cube>();
+
+    //g = createGraphics(width, height, P3D); 
+    //hud = createGraphics(width, height, P2D); 
+
+    //drawMap(); 
+    //drawFloor(-2000, 2000, height, gridSize); 
+
+
+    //selected = oakPlanks; 
+
+    //w = false; 
+    //a = false;
+    //s = false; 
+    //d = false; 
+    //space = false;
+    setup(); 
   }
 }
 void mousePressed() {
