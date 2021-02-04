@@ -13,7 +13,8 @@ class HealthPotion extends GameObject {
 
   public void show() {
     g.pushMatrix();
-    g.fill(255, 0, 0); 
+    g.fill(#e76f51); 
+    g.noStroke();
     g.translate(this.loc.x, this.loc.y, this.loc.z); 
     g.sphere(10); 
     g.popMatrix();

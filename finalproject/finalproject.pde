@@ -14,7 +14,7 @@ color black = #000000;
 color white = #FFFFFF;
 color dullBlue = #7092BE;
 
-PImage map, mossyStone, oakPlanks;
+PImage map, mossyStone, oakPlanks, emerald, dirt, log;
 
 PGraphics g, hud;
 
@@ -41,7 +41,10 @@ void setup() {
 
   map = loadImage("map.png"); 
   mossyStone = loadImage("Mossy_Stone_Bricks.png"); 
-  oakPlanks = loadImage("Oak_Planks.png"); 
+  oakPlanks = loadImage("Oak_Planks.png");
+  emerald = loadImage("emerald.jpg"); 
+  dirt = loadImage("dirt.jpg"); 
+  log = loadImage("log.jpg"); 
   selected = oakPlanks;
 
   g = createGraphics(width, height, P3D); 
@@ -67,17 +70,26 @@ void setup() {
 void draw() {
   switch(mode) {
   case INTRO:
+    hud.beginDraw(); 
+    hud.clear();
+    hud.endDraw(); 
+    
     g.beginDraw();
     g.textureMode(NORMAL); 
-    g.background(0, 255, 0); 
+    g.background(#d8e2dc); 
+    g.fill(0); 
+    g.textSize(50); 
+    g.text("FINAL PROJECT\nPRESS ANYWHERE\nTO START", width/2-500, height/2); 
     g.endDraw(); 
+
+
     break;
   case GAME:
     if (frameCount%100==0) {
       bulletList.add(new Enemy(g));
     } 
-    if(frameCount%200 == 0) {
-      bulletList.add(new HealthPotion(g)); 
+    if (frameCount%200 == 0) {
+      bulletList.add(new HealthPotion(g));
     }
     if (space) {
       bulletList.add(new Bullet(g));
@@ -142,11 +154,17 @@ void draw() {
     hud.rect(width/2-300, height-100, 600, 100); 
     hud.image(oakPlanks, width/2-300, height-100, 50, 50); 
     hud.image(mossyStone, width/2-200, height-100, 50, 50); 
+    hud.image(emerald, width/2-100, height-100, 50, 50); 
+    hud.image(dirt, width/2, height-100, 50, 50); 
+    hud.image(log, width/2+100, height-100, 50, 50); 
 
     hud.fill(255); 
     hud.textSize(20); 
     hud.text("1", width/2-300, height-100); 
     hud.text("2", width/2-200, height-100); 
+    hud.text("3", width/2-100, height-100); 
+    hud.text("4", width/2, height-100); 
+    hud.text("5", width/2+100, height-100); 
 
     hud.text("lives: " + p.lives, width-200, 100); 
 
@@ -156,16 +174,15 @@ void draw() {
   case PAUSE:
     break;
   case GAMEOVER:
+    cursor(); 
     g.beginDraw(); 
     g.background(0); 
-
-    //g.text("2", width, height-100); 
     g.endDraw(); 
 
     hud.beginDraw();
     hud.clear(); 
-    hud.fill(255); 
-    hud.textSize(200); 
+    hud.fill(#fec5bb); 
+    hud.textSize(100); 
     hud.text("GAMEOVER", width/2-500, height/2); 
     hud.endDraw(); 
     break;

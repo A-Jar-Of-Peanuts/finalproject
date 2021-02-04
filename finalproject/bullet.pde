@@ -15,22 +15,14 @@ class Bullet extends GameObject {
   public void show() {
     g.pushMatrix(); 
     g.translate(loc.x, loc.y, loc.z); 
-    g.fill(0, 255, 0); 
+    g.fill(#264653); 
     g.stroke(100); 
     g.box(10); 
     g.popMatrix();
   }
 
   public void act() {
-    //if (map.get(hitx, hity) == white) {
-    //  loc.add(dir);
-    //} else {
-    //  lives = 0; 
-    //  for (int i = 0; i<5; i++) {
-    //    bulletList.add(new Particle(g, loc));
-    //  }
-    //}
-    if(loc.x>=2000 || loc.x<=-2000 || loc.z>=2000 || loc.z<=-2000 || loc.y>=2000 || loc.y<=-2000) {
+    if(loc.x>=1900 || loc.x<=-1900 || loc.z>=1900 || loc.z<=-1900 || loc.y>=1900 || loc.y<=-1900) {
       lives = 0; 
       for (int i = 0; i<5; i++) {
         bulletList.add(new Particle(g, loc));

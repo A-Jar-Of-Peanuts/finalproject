@@ -33,7 +33,7 @@ class Enemy extends GameObject {
 
   public void show() {
     g.pushMatrix(); 
-    g.fill(0, 0, 255); 
+    g.fill(#e5989b); 
     g.noStroke(); 
     g.translate(loc.x, loc.y, loc.z); 
     g.sphere(50); 
